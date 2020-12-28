@@ -31,7 +31,7 @@ jobs:
         id: run-script
         run: |
           str=$(go run main.go)
-          echo ''::set-output name=str::$str'
+          echo '::set-output name=str::$str'
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v1
