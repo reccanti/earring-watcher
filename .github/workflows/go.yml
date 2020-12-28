@@ -31,8 +31,10 @@ jobs:
         id: run-script
         run: |
           str=$(go run main.go)
-          printf -v var "%q\n" $str
-          echo ::set-output name=str::$var
+          str="${str//'%'/'%25'}"
+          str="${str//$'\n'/'%0A'}"
+          str="${str//$'\r'/'%0D'}" 
+          echo ::set-output name=str::$str
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v1
