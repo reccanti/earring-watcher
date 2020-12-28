@@ -2,7 +2,7 @@ name: Go
 
 on:
   schedule:
-    - cron: "* */1 * * *"
+    - cron: "*/15 * * * *"
 
 jobs:
   get_data:
