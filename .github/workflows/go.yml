@@ -8,7 +8,7 @@ on:
 
 jobs:
   get_data:
-    name: Build
+    name: Get Data
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go 1.x
@@ -28,14 +28,12 @@ jobs:
           fi
 
       - name: Run the script
-        run: |
-          str=$(go run main.go)
-          if [[ $str ]]; then
-            echo "$str" > out.md
-          fi
+        run: str=$(go run main.go)
 
-      - name: Archive script output
-        uses: actions/upload-artifact@v2
+      - name: Create Comment
+        uses: peter-evans/create-or-update-comment@v1
         with:
-          name: message
-          path: out.md
+          token: ${{ secrets.GH_TOKEN }}
+          comment-id: 1
+          reactions: eyes
+          body: echo "$str"
