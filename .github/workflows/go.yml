@@ -50,7 +50,7 @@ jobs:
           key: cache-${{ hashFiles('cache.md') }}
 
       - name: Create Comment
-        if: steps.cache-output.outputs.cache-hit != 'true'
+        if: steps.cache-output.outputs.cache-hit && steps.cache-output.outputs.cache-hit != 'true'
         uses: peter-evans/create-or-update-comment@v1
         with:
           token: ${{ secrets.GH_TOKEN }}
