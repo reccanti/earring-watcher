@@ -36,10 +36,23 @@ jobs:
           str="${str//$'\r'/'%0D'}" 
           echo ::set-output name=str::$str
 
+      - name: Exit Early
+        run: |
+          if [[ ${{ steps.run-script.outputs.str }} ]]; then
+            success()
+          else
+            failure()
+          fi
+
       - name: Create Comment
+        if: ${{ success() }}
         uses: peter-evans/create-or-update-comment@v1
         with:
           token: ${{ secrets.GH_TOKEN }}
           issue-number: 1
           reactions: eyes
           body: ${{ steps.run-script.outputs.str }}
+
+      - name: Exit without error
+        if: ${{ failure() }}
+        run: success()
