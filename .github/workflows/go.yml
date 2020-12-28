@@ -37,6 +37,6 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           token: ${{ secrets.GH_TOKEN }}
-          issue-id: 1
+          issue-number: 1
           reactions: eyes
           body: ${{ steps.run-script.outputs.str }}
