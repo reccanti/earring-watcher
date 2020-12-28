@@ -34,8 +34,15 @@ jobs:
           str="${str//$'\r'/'%0D'}" 
           echo ::set-output name=str::$str
 
+      - name: Cache Output
+        id: cache-output
+        uses: actions/cache@v2
+        with:
+          path: output-text
+          key: ${{ steps.run-script.outputs.str }}
+
       - name: Create Comment
-        if: ${{ steps.run-script.outputs.str }}
+        if: ${{ steps.cache-output.outputs.cache-hit != 'true' }}
         uses: peter-evans/create-or-update-comment@v1
         with:
           token: ${{ secrets.GH_TOKEN }}
