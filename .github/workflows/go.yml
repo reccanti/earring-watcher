@@ -35,6 +35,7 @@ jobs:
           echo ::set-output name=str::$str
 
       - name: Cache Output
+        if: ${{ steps.run-script.outputs.str }}
         id: cache-output
         uses: actions/cache@v2
         with:
