@@ -39,7 +39,7 @@ jobs:
 
       - name: Create Cache File
         id: make-cache
-        run: echo "${{ steps.run-script.outputs.str }}" > ~/cache.md
+        run: echo "${{ steps.run-script.outputs.str }}" > ~/cache/cache.md
 
       - name: Cache Output
         if: ${{ steps.run-script.outputs.str }}
@@ -47,7 +47,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/
-          key: ${{ hashFiles('cache.md') }}
+          key: ${{ hashFiles('~/cache/*') }}
 
       - name: Create Comment
         if: ${{ steps.cache-output.outputs.cache-hit != 'true' }}
