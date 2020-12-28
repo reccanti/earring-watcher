@@ -28,7 +28,10 @@ jobs:
           fi
 
       - name: Run the script
-        run: str=$(go run main.go)
+        id: run-script
+        run: |
+          str=$(go run main.go)
+          echo "::set-output name=str::$str"
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v1
@@ -36,4 +39,4 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           comment-id: 1
           reactions: eyes
-          body: echo "$str"
+          body: ${{ steps.run-script.outputs.str }}
