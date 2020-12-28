@@ -115,7 +115,7 @@ func format(products []ProductInfo) string {
 		// }
 	}
 	if len(productMkdownItems) > 0 {
-		title := "Hoi! Some earrings are in stock!"
+		title := "@reccanti Hoi! Some earrings are in stock!"
 		return fmt.Sprintf("# Update\n%s\n\n%s", title, strings.Join(productMkdownItems, "\n"))
 	}
 	return ""
