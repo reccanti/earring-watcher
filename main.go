@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
@@ -9,6 +8,8 @@ import (
 
 	"golang.org/x/net/html"
 )
+
+const EARRING_URL = "https://electriccowboy.bigcartel.com"
 
 type ProductInfo struct {
 	Name    string
@@ -102,9 +103,27 @@ func traverse(n html.Node, f func(n html.Node)) {
 	}
 }
 
+/**
+ * Format Output
+ */
+func format(products []ProductInfo) string {
+	productMkdownItems := []string{}
+	for _, p := range products {
+		// if p.InStock {
+		str := fmt.Sprintf("  - [%s](%s%s)", p.Name, EARRING_URL, p.Url)
+		productMkdownItems = append(productMkdownItems, str)
+		// }
+	}
+	if len(productMkdownItems) > 0 {
+		title := "Hoi! Some earrings are in stock!"
+		return fmt.Sprintf("# Update\n%s\n\n%s", title, strings.Join(productMkdownItems, "\n"))
+	}
+	return ""
+}
+
 func main() {
 	// Create an HTML tree from our given URL
-	res, err := http.Get("https://electriccowboy.bigcartel.com/products")
+	res, err := http.Get(EARRING_URL)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -140,11 +159,5 @@ func main() {
 		products = append(products, p)
 	}
 
-	j, err := json.Marshal(products)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	os.Stdout.Write(j)
+	os.Stdout.Write([]byte(format(products)))
 }
