@@ -33,3 +33,9 @@ jobs:
           if [[ $str ]]; then
             echo "$str" > out.md
           fi
+
+      - name: Archive script output
+        uses: actions/upload-artifact@v2
+        with:
+          name: message
+          path: out.md
