@@ -44,7 +44,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/
-          key: ${{ hashFiles("cache.md") }}
+          key: ${{ hashFiles('cache.md') }}
 
       - name: Create Comment
         if: ${{ steps.cache-output.outputs.cache-hit != 'true' }}
