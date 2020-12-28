@@ -109,10 +109,10 @@ func traverse(n html.Node, f func(n html.Node)) {
 func format(products []ProductInfo) string {
 	productMkdownItems := []string{}
 	for _, p := range products {
-		// if p.InStock {
+		if p.InStock {
 			str := fmt.Sprintf("  - [%s](%s%s)", p.Name, EARRING_URL, p.Url)
 			productMkdownItems = append(productMkdownItems, str)
-		// }
+		}
 	}
 	if len(productMkdownItems) > 0 {
 		title := "@reccanti Hoi! Some earrings are in stock!"
