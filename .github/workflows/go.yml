@@ -39,4 +39,4 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           comment-id: 1
           reactions: eyes
-          body: ${{ steps.run-script.outputs.str }}
+          body: Test
