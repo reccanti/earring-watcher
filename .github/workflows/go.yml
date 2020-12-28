@@ -32,7 +32,7 @@ jobs:
         run: |
           str=$(go run main.go)
           printf -v var "%q\n" $str
-          echo "::set-output name=str::$var"
+          echo ::set-output name=str::$var
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v1
