@@ -57,3 +57,12 @@ jobs:
           issue-number: 1
           reactions: eyes
           body: ${{ steps.run-script.outputs.str }}
+
+      - name: Send Push
+        if: steps.cache-output.outputs.cache-hit && steps.cache-output.outputs.cache-hit != 'true'
+        uses: techulus/push-github-action@1.0.0
+        env:
+          API_KEY: ${{ secrets.PUSH_API_KEY }}
+          MESSAGE: "There's been an earring update!"
+          TITLE: Hoi!!!
+          LINK: https://github.com/reccanti/earring-watcher/issues/1
